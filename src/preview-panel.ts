@@ -16,7 +16,7 @@ export function createPreviewPanel(context: vscode.ExtensionContext) {
 	// If panel already exists, reveal it
 	if (currentPanel) {
 		currentPanel.reveal(vscode.ViewColumn.Beside);
-		updateCurrentContent(editor.document.getText());
+		void updateCurrentContent(editor.document.getText());
 		return;
 	}
 
@@ -49,19 +49,19 @@ export function createPreviewPanel(context: vscode.ExtensionContext) {
 			event.document === vscode.window.activeTextEditor?.document &&
 			event.document.languageId === "markdown"
 		) {
-			updateCurrentContent(event.document.getText());
+			void updateCurrentContent(event.document.getText());
 		}
 	});
 
 	changeListener = docChangeListener;
 	context.subscriptions.push(docChangeListener);
 
-	updateCurrentContent(editor.document.getText());
+	void updateCurrentContent(editor.document.getText());
 }
 
-function updateCurrentContent(markdown: string) {
+async function updateCurrentContent(markdown: string) {
 	if (!currentPanel) return;
-	updateContent(currentPanel, markdown);
+	await updateContent(currentPanel, markdown);
 }
 
 export function closePreviewPanel() {

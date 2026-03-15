@@ -1,9 +1,10 @@
 {
   "name": "md-preview",
-  "displayName": "Markdown Previewer",
+  "displayName": "Markdown Previewer Plus",
   "description": "Live Markdown preview with auto-refresh and scroll sync.",
   "version": "0.0.1",
   "publisher": "ParthPatel",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/parthpatel021/md-preview"
