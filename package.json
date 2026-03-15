@@ -2,7 +2,7 @@
   "name": "md-preview",
   "displayName": "Markdown Previewer Plus",
   "description": "Live Markdown preview with auto-refresh and scroll sync.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "ParthPatel",
   "license": "MIT",
   "repository": {
@@ -19,6 +19,7 @@
   "categories": [
     "Other"
   ],
+  "icon": "assets/parthpatel.jpeg",
   "activationEvents": [
     "onLanguage:markdown"
   ],
