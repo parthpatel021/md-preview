@@ -2,7 +2,7 @@
   "name": "md-preview",
   "displayName": "Markdown Previewer Plus",
   "description": "Live Markdown preview with auto-refresh and scroll sync.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "ParthPatel",
   "license": "MIT",
   "repository": {
@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/parthpatel021/md-preview#readme",
   "engines": {
-    "vscode": "^1.109.0"
+    "vscode": "^1.74.0"
   },
   "categories": [
     "Other"
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
-    "@types/vscode": "^1.109.0",
+    "@types/vscode": "^1.74.0",
     "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.5.2",
     "eslint": "^9.39.2",

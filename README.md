@@ -36,6 +36,6 @@ This extension bundles and uses the `marked` library. Make sure its license term
 
 ## Release Notes
 
-### 1.0.0
+### 0.0.3
 
 - Initial release
