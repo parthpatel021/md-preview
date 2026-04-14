@@ -4,6 +4,7 @@ import { updateContent } from "./preview/content";
 
 let currentPanel: vscode.WebviewPanel | undefined;
 let changeListener: vscode.Disposable | undefined;
+let openPanelsCount = 0;
 
 export function createPreviewPanel(context: vscode.ExtensionContext) {
 	const editor = vscode.window.activeTextEditor;
@@ -13,14 +14,25 @@ export function createPreviewPanel(context: vscode.ExtensionContext) {
 		return;
 	}
 
-	// If panel already exists, reveal it
-	if (currentPanel) {
-		currentPanel.reveal(vscode.ViewColumn.Beside);
-		void updateCurrentContent(editor.document.getText());
+	// Prevent opening if any panel already exists
+	if (openPanelsCount > 0) {
+		vscode.window.showWarningMessage("Another preview panel is already open.");
 		return;
 	}
 
-	currentPanel = vscode.window.createWebviewPanel(
+	// Extra safety: reuse if somehow still referenced
+	if (currentPanel) {
+		try {
+			currentPanel.reveal(vscode.ViewColumn.Beside);
+			void updateCurrentContent(editor.document.getText());
+			return;
+		} catch {
+			currentPanel = undefined;
+		}
+	}
+
+	// Create new panel
+	const panel = vscode.window.createWebviewPanel(
 		"markdownPreview",
 		"Markdown Preview",
 		vscode.ViewColumn.Beside,
@@ -30,8 +42,14 @@ export function createPreviewPanel(context: vscode.ExtensionContext) {
 		},
 	);
 
-	currentPanel.onDidDispose(() => {
+	currentPanel = panel;
+	openPanelsCount++;
+
+	// Cleanup on dispose
+	panel.onDidDispose(() => {
 		currentPanel = undefined;
+		openPanelsCount = Math.max(0, openPanelsCount - 1);
+
 
 		// Dispose listener when panel closes
 		if (changeListener) {
@@ -68,5 +86,6 @@ export function closePreviewPanel() {
 	if (currentPanel) {
 		currentPanel.dispose();
 		currentPanel = undefined;
+		openPanelsCount = Math.max(0, openPanelsCount - 1);
 	}
 }
